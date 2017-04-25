@@ -1,0 +1,96 @@
+@import '../../theme/theme';
+.form {
+  padding: 30px 10%;
+}
+
+.form-control {
+  position: relative;
+}
+
+.form-control .form-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200px;
+  font-size: 16px;
+}
+
+.input-container {
+  padding: 5px 0 30px 215px;
+}
+
+.input-container md-select,
+.input-container md-input-container {
+  width: 100%;
+}
+
+.input-container md-select {
+  margin: 1em 0;
+}
+
+.input-container md-checkbox,
+.input-container md-radio-button {
+  margin-right: 1em;
+}
+
+.clear:before,
+.clear:after {
+  content: " ";
+  clear: both;
+}
+
+.upload-content {
+  width: 100%;
+  padding: 15px 0;
+  margin-bottom: 30px;
+}
+
+.upload-content img {
+  width: 100px;
+  height: 100px;
+}
+
+.upload-content img:before,
+.upload-content img:after {
+  clear: both;
+}
+
+.upload-list {
+  display: inline-block;
+}
+
+.custom-input {
+  width: 100%;
+}
+
+.custom-input input {
+  width: 100%;
+  font-size: 1em;
+  padding: .2em 0;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.custom-input input:focus {
+  border-bottom: 2px solid $primary-color;
+}
+
+::-webkit-input-placeholder {
+  /* WebKit browsers */
+  font-weight: 200;
+}
+
+:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  font-weight: 200;
+}
+
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  font-weight: 200;
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  font-weight: 200;
+}

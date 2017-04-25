@@ -1,0 +1,15 @@
+<div class="modal-full">
+  <div class="modal-title">
+    {{title}}
+    <div class="title-right">
+      <button md-icon-button type="button" (click)="hide()">
+        <md-icon>close</md-icon>
+      </button>
+    </div>
+  </div>
+  <div class="modal-content-wrapper">
+    <div class="modal-content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
