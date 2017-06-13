@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../lib/dform/component/index.ts"],"names":[],"mappings":"AAAA,cAAc,kBAAkB,CAAC;AACjC,cAAc,sBAAsB,CAAC","sourcesContent":["export * from './form.component';\nexport * from './form-set.component';"]}

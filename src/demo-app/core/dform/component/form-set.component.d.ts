@@ -1,0 +1,30 @@
+import { OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { MdDialog } from '@angular/material';
+import 'wangeditor/dist/js/wangEditor.js';
+import { FormType } from '../_entity';
+import { UploadService } from '../_service';
+export declare class DynamicFormSet implements OnInit, AfterViewInit {
+    private cdr;
+    private uploadService;
+    dialog: MdDialog;
+    formdata: any;
+    form: FormGroup;
+    formSet: any;
+    date: any;
+    time: any;
+    datetime: any;
+    formControl: typeof FormType;
+    formValue: any;
+    constructor(cdr: ChangeDetectorRef, uploadService: UploadService, dialog: MdDialog);
+    ngOnInit(): void;
+    ngAfterViewInit(): void;
+    isValid(): boolean;
+    newEditor(editordata: any): void;
+    getChecked(opt: any, id: any): void;
+    uploadChange(files: any): void;
+    UploadSuccess(data: any): void;
+    UploadFailure(data: any): void;
+    fileDel(file?: any): void;
+    openDialog(msg: any): void;
+}

@@ -1,0 +1,109 @@
+<div [formGroup]="form" #formSet>
+  <div [ngSwitch]="formdata.controlType" class="form-control">
+    <div *ngSwitchCase="formControl.text">
+      <p class="form-label">{{formdata.label}}<span *ngIf="!isValid()&&!formdata.disabled" style="color: #e74c3c;">*</span></p>
+      <div class="input-container">
+        <md-input-container *ngIf="!formdata.maxlength">
+          <input mdInput type="{{formdata.type}}" placeholder="{{formdata.label}}" [formControlName]="formdata.key" [(ngModel)]="formValue">
+        </md-input-container>
+        <md-input-container *ngIf="formdata.maxlength">
+          <input mdInput type="{{formdata.type}}" maxlength="{{formdata.maxlength}}" placeholder="{{formdata.label}}" [formControlName]="formdata.key" [(ngModel)]="formValue">
+          <md-hint align="end">{{formValue.length}} / {{formdata.maxlength}}</md-hint>
+        </md-input-container>
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.date">
+      <p class="form-label">{{formdata.label}}<span *ngIf="!date.value&&formdata.required&&!formdata.disabled" style="color: #e74c3c;">*</span></p>
+      <div class="input-container">
+        <div class="custom-input">
+          <input placeholder="{{formdata.placeholder}}" #date>
+        </div>
+        <input type="hidden" [formControlName]="formdata.key" [(ngModel)]="date.value">
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.time">
+      <p class="form-label">{{formdata.label}}<span *ngIf="!time.value&&formdata.required&&!formdata.disabled" style="color: #e74c3c;">*</span></p>
+      <div class="input-container">
+        <div class="custom-input">
+          <input placeholder="{{formdata.placeholder}}" #time>
+        </div>
+        <input type="hidden" [formControlName]="formdata.key" [(ngModel)]="time.value">
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.datetime">
+      <p class="form-label">{{formdata.label}}<span *ngIf="!datetime.value&&formdata.required&&!formdata.disabled" style="color: #e74c3c;">*</span></p>
+      <div class="input-container">
+        <div class="custom-input">
+          <input placeholder="{{formdata.placeholder}}" #datetime>
+        </div>
+        <input type="hidden" [formControlName]="formdata.key" [(ngModel)]="datetime.value">
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.textarea">
+      <p class="form-label">{{formdata.label}}<span *ngIf="!isValid()&&!formdata.disabled" style="color: #e74c3c;">*</span></p>
+      <div class="input-container">
+        <md-input-container *ngIf="!formdata.maxlength">
+          <textarea mdInput [attr.row]="formdata.size" placeholder="{{formdata.label}}" [formControlName]="formdata.key"></textarea>
+        </md-input-container>
+        <md-input-container *ngIf="formdata.maxlength">
+          <textarea mdInput maxlength="{{formdata.maxlength}}" [attr.row]="formdata.size" placeholder="{{formdata.label}}" [formControlName]="formdata.key" [(ngModel)]="formValue"></textarea>
+          <md-hint align="end">{{formValue.length}} / {{formdata.maxlength}}</md-hint>
+        </md-input-container>
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.editor">
+      <p class="form-label">{{formdata.label}}<span *ngIf="!formValue&&!formdata.disabled&&formdata.required" style="color: #e74c3c;">*</span></p>
+      <div class="input-container">
+        <textarea [id]="formdata.key" style="height:500px;">
+        </textarea>
+        <input type="hidden" [formControlName]="formdata.key" [(ngModel)]="formValue">
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.checkbox">
+      <p class="form-label">{{formdata.label}}<span *ngIf="!isValid()&&!formdata.disabled" style="color: #e74c3c;">*</span></p>
+      <div class="input-container">
+        <section>
+          <md-checkbox *ngFor="let opt of formdata.options" [(checked)]="opt.checked" (change)="getChecked($event, opt.id)">{{opt.name}}</md-checkbox>
+        </section>
+      </div>
+      <input type="hidden" [formControlName]="formdata.key" [(ngModel)]="formValue">
+    </div>
+    <div *ngSwitchCase="formControl.radio">
+      <p class="form-label">{{formdata.label}}<span *ngIf="!isValid()&&!formdata.disabled" style="color: #e74c3c;">*</span></p>
+      <div class="input-container">
+        <md-radio-group [formControlName]="formdata.key" [(ngModel)]="formValue">
+          <md-radio-button *ngFor="let opt of formdata.options" [value]="opt.id.toString()">{{opt.name}}</md-radio-button>
+        </md-radio-group>
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.dropdown">
+      <p class="form-label">{{formdata.label}}<span *ngIf="!isValid()&&!formdata.disabled" style="color: #e74c3c;">*</span></p>
+      <div class="input-container">
+        <md-select placeholder="{{formdata.label}}" [formControlName]="formdata.key" [(ngModel)]="formValue">
+          <md-option *ngFor="let opt of formdata.options" [value]="opt.id.toString()">
+            {{opt.name}}
+          </md-option>
+        </md-select>
+      </div>
+    </div>
+    <div *ngSwitchCase="formControl.file">
+      <p class="form-label">{{formdata.label}}<span *ngIf="!isValid()&&!formdata.disabled" style="color: #e74c3c;">*</span></p>
+      <div class="input-container">
+        <input [id]="formdata.key" type="file" (change)="uploadChange($event)">
+        <input type="hidden" [formControlName]="formdata.key" [(ngModel)]="formValue">
+        <div class="upload-content">
+          <div *ngIf="!formdata.multiple&&formValue">
+            <img class="image" [src]="formValue">
+            <md-icon (click)="fileDel()">close</md-icon>
+          </div>
+          <div *ngIf="formdata.multiple">
+            <div *ngFor="let item of formValue" class="upload-list">
+              <img class="image" [src]="item">
+              <md-icon (click)="fileDel(item)">close</md-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
